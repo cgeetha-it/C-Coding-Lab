@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+struct student {
+ int roll_no;
+ char name[50];
+ char dob[10];
+ char state[10];
+ float tenth_percentage;
+ float twelfth_percentage;
+};
+int main() {
+ struct student s;
+ // Get the student details from the user
+ printf("Enter the student's roll number: ");
+ scanf("%d", &s.roll_no);
+ printf("Enter the student's name: ");
+ scanf("%s", s.name);
+ printf("Enter the student's state: ");
+ scanf("%s", s.state);
+ printf("Enter the student's 10th percentage: ");
+ scanf("%f", &s.tenth_percentage);
+ printf("Enter the student's 12th percentage: ");
+ scanf("%f", &s.twelfth_percentage);
+ // Calculate the student's age
+ // Get the user's date of birth
+ int day, month, year;
+ printf("Enter the student's date of birth (dd/mm/yyyy): ");
+ scanf("%d/%d/%d", &day, &month, &year);
+ // Calculate the current year
+ int current_year = 2023;
+ // Calculate the age
+ int age = current_year - year;
+ // Check if the month and day of the user's birthdate is greater than the current month 
+and day
+ if (month > 9 || (month == 9 && day > day)) {
+ age--;
+ }
+ // Check the student's eligibility
+ int is_eligible = (s.tenth_percentage > 60 && s.twelfth_percentage > 60 && age >= 17 && 
+strcmp(s.state, "TN") == 0);
+ // Display the student's details and eligibility status
+ printf("Student details:\n");
+ printf("Roll number: %d\n", s.roll_no);
+ printf("Name: %s\n", s.name);
+ printf("Date of birth: %s\n", s.dob);
+ printf("State: %s\n", s.state);
+ printf("10th percentage: %.2f\n", s.tenth_percentage);
+ printf("12th percentage: %.2f\n", s.twelfth_percentage);
+ printf("Age: %d\n", age);
+ printf("Eligibility status: %s\n", is_eligible ? "Eligible" : "Not eligible");
+ return 0;
+}
