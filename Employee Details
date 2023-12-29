@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+// Structure to represent an employee
+struct Employee {
+ int id;
+ char name[50];
+ float salary;
+};
+// Function to input employee details
+void inputEmployees(struct Employee *employees, int n) {
+ for (int i = 0; i < n; i++) {
+ printf("Enter details for employee %d:\n", i + 1);
+ employees[i].id = i + 1;
+ printf("Name: ");
+ scanf("%s", employees[i].name);
+ printf("Salary: ");
+ scanf("%f", &employees[i].salary);
+ }
+}
+// Function to sort employees by name
+void sortByName(struct Employee *employees, int n) {
+ for (int i = 0; i < n - 1; i++) {
+ for (int j = 0; j < n - i - 1; j++) {
+ if (strcmp(employees[j].name, employees[j + 1].name) > 0) {
+ // Swap the two employees
+ struct Employee temp = employees[j];
+ employees[j] = employees[j + 1];
+ employees[j + 1] = temp;
+ }
+ }
+ }
+}
+// Function to sort employees by ID
+void sortById(struct Employee *employees, int n) {
+ for (int i = 0; i < n - 1; i++) {
+ for (int j = 0; j < n - i - 1; j++) {
+ if (employees[j].id > employees[j + 1].id) {
+ // Swap the two employees
+ struct Employee temp = employees[j];
+ employees[j] = employees[j + 1];
+ employees[j + 1] = temp;
+ }
+ }
+ }
+}
+// Function to sort employees by salary
+void sortBySalary(struct Employee *employees, int n) {
+ for (int i = 0; i < n - 1; i++) {
+ for (int j = 0; j < n - i - 1; j++) {
+ if (employees[j].salary > employees[j + 1].salary) {
+ // Swap the two employees
+ struct Employee temp = employees[j];
+ employees[j] = employees[j + 1];
+ employees[j + 1] = temp;
+ }
+ }
+ }
+}
+// Function to display employee details
+void displayEmployees(struct Employee *employees, int n) {
+ printf("\nEmployee Details:\n");
+ printf("ID\tName\tSalary\n");
+ for (int i = 0; i < n; i++) {
+ printf("%d\t%s\t%.2f\n", employees[i].id, employees[i].name, employees[i].salary);
+ }
+}
+int main() {
+ int n;
+ printf("Enter the number of employees: ");
+ scanf("%d", &n);
+struct Employee *employees = (struct Employee *)malloc(n * sizeof(struct Employee));
+if (employees == NULL) {
+ printf("Memory allocation failed!\n");
+ return 1;
+ }
+inputEmployees(employees, n);
+ // Sort employees by name
+ sortByName(employees, n);
+ printf("\nSorted by Name:\n");
+ displayEmployees(employees, n);
+ // Sort employees by ID
+ sortById(employees, n);
+ printf("\nSorted by ID:\n");
+ displayEmployees(employees, n);
+ // Sort employees by salary
+ sortBySalary(employees, n);
+ printf("\nSorted by Salary:\n");
+ displayEmployees(employees, n);
+free(employees);
+return 0;
+}
