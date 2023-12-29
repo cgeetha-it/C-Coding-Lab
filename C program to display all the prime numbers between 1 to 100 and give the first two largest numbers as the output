@@ -1,0 +1,65 @@
+#include <stdio.h>
+
+int main() {
+
+    int num, isPrime, largest1 = 0, largest2 = 0;
+
+ 
+
+    for (num = 1; num <= 100; num++) {
+
+        isPrime = 1;
+
+ 
+
+        if (num < 2) {
+
+            isPrime = 0;
+
+        } else {
+
+            for (int i = 2; i < num; i++) {
+
+                if (num % i == 0) {
+
+                    isPrime = 0;
+
+                    break;
+
+                }
+
+            }
+
+        }
+
+ 
+
+        if (isPrime) {
+
+            if (num > largest1) {
+
+                largest2 = largest1;
+
+                largest1 = num;
+
+            } else if (num > largest2) {
+
+                largest2 = num;
+
+            }
+
+        }
+
+    }
+
+ 
+
+    printf("The first largest prime number: %d\n", largest1);
+
+    printf("The second largest prime number: %d\n", largest2);
+
+ 
+
+    return 0;
+
+}
