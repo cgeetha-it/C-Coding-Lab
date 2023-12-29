@@ -1,0 +1,139 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_BOOKS 10
+#define MAX_AUTHORS 10
+#define MAX_CATEGORIES 10
+struct Book {
+ char title[100];
+ char author[100];
+ char category[100];
+ float cost;
+};
+struct Book books[MAX_BOOKS];
+char authors[MAX_AUTHORS][100];
+char categories[MAX_CATEGORIES][100];
+int numBooks = 0;
+int numAuthors = 0;
+int numCategories = 0;
+void addBook() {
+ if (numBooks < MAX_BOOKS) {
+ struct Book newBook;
+ printf("Enter book title: ");
+ scanf(" %[^\n]", newBook.title);
+ printf("Enter author name: ");
+ scanf(" %[^\n]", newBook.author);
+ printf("Enter category: ");
+ scanf(" %[^\n]", newBook.category);
+ printf("Enter cost: ");
+ scanf("%f", &newBook.cost);
+ books[numBooks] = newBook;
+ numBooks++;
+ printf("Book added successfully!\n");
+ } else {
+ printf("Library is full. Cannot add more books.\n");
+ }
+}
+void addAuthor() {
+ if (numAuthors < MAX_AUTHORS) {
+ printf("Enter author's name: ");
+ scanf(" %[^\n]", authors[numAuthors]);
+ numAuthors++;
+ printf("Author added successfully!\n");
+ } else {
+ printf("Maximum authors reached. Cannot add more authors.\n");
+ }
+}
+void addCategory() {
+ if (numCategories < MAX_CATEGORIES) {
+ printf("Enter category name: ");
+ scanf(" %[^\n]", categories[numCategories]);
+ numCategories++;
+ printf("Category added successfully!\n");
+ } else {
+ printf("Maximum categories reached. Cannot add more categories.\n");
+ }
+}
+void displayBooksByAuthor() {
+ char searchAuthor[100];
+ printf("Enter author's name to search for books: ");
+ scanf(" %[^\n]", searchAuthor);
+ printf("Books by author '%s':\n", searchAuthor);
+ for (int i = 0; i < numBooks; i++) {
+ if (strcmp(books[i].author, searchAuthor) == 0) {
+ printf("Title: %s\n", books[i].title);
+ printf("Category: %s\n", books[i].category);
+ printf("Cost: %.2f\n", books[i].cost);
+ printf("\n");
+ }
+ }
+}
+void displayBooksByCategory() {
+ char searchCategory[100];
+ printf("Enter category name to search for books: ");
+ scanf(" %[^\n]", searchCategory);
+ printf("Books in category '%s':\n", searchCategory);
+ for (int i = 0; i < numBooks; i++) {
+ if (strcmp(books[i].category, searchCategory) == 0) {
+ printf("Title: %s\n", books[i].title);
+ printf("Author: %s\n", books[i].author);
+ printf("Cost: %.2f\n", books[i].cost);
+ printf("\n");
+ }
+ }
+}
+void displayBooksUnderCost() {
+ float maxCost;
+ printf("Enter maximum cost: ");
+ scanf("%f", &maxCost);
+ printf("Books under %.2f:\n", maxCost);
+ for (int i = 0; i < numBooks; i++) {
+ if (books[i].cost <= maxCost) {
+ printf("Title: %s\n", books[i].title);
+ printf("Author: %s\n", books[i].author);
+ printf("Category: %s\n", books[i].category);
+ printf("\n");
+ }
+ }
+}
+int main() {
+ int choice;
+ do {
+ printf("\nLibrary Management System Menu:\n");
+ printf("1. Add Book\n");
+ printf("2. Add Author\n");
+ printf("3. Add Category\n");
+ printf("4. Display Books by Author\n");
+ printf("5. Display Books by Category\n");
+ printf("6. Display Books under Cost\n");
+ printf("7. Exit\n");
+ printf("Enter your choice: ");
+ scanf("%d", &choice);
+ switch (choice) {
+ case 1:
+ addBook();
+ break;
+ case 2:
+ addAuthor();
+ break;
+ case 3:
+ addCategory();
+ break;
+ case 4:
+ displayBooksByAuthor();
+ break;
+ case 5:
+ displayBooksByCategory();
+ break;
+ case 6:
+ displayBooksUnderCost();
+ break;
+ case 7:
+ printf("Exiting the program. Goodbye!\n");
+ break;
+ default:
+ printf("Invalid choice. Please try again.\n");
+ }
+ } while (choice != 7);
+ return 0;
+}
